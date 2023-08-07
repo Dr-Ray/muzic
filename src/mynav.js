@@ -32,15 +32,6 @@ const MyNav = () => {
                 ),
                 }}
             />
-            <Tab.Screen 
-                name="Settings" 
-                component={Settings} 
-                options={{
-                tabBarIcon: ({ focused }) => (
-                    <Icons name="gear" size={20} />
-                ),
-                }}
-            />
         </Tab.Navigator>
     )
 }

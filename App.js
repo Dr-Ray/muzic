@@ -1,20 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { TailwindProvider } from 'tailwind-rn';
+import utilities from './tailwind.json'
+import { NavigationContainer } from '@react-navigation/native';
+import { useState } from 'react';
+
+import appContext from './src/context';
+
+import MyNav from './src/mynav';
 
 export default function App() {
+  const [nowPlaying, setnowPlaying] = useState('');
+  const [prev, setPrev] = useState('');
+  const [next, setNext] = useState('');
+
+  const [repeatSingle, setrepeatSingle] = useState(false);
+  const [shuffle, setshuffle] = useState(false);
+  const [repeatAll, setrepeatAll] = useState(false);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TailwindProvider utilities={utilities}>
+        <appContext.Provider val={{nowPlaying,prev,next,repeatAll,repeatSingle,shuffle, setnowPlaying,setPrev,setNext,setrepeatAll,setrepeatSingle,setshuffle}}>
+          <NavigationContainer>
+            <StatusBar style="auto" />
+            <MyNav />
+          </NavigationContainer>
+        </appContext.Provider>
+    </TailwindProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

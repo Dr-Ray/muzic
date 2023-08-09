@@ -1,38 +1,28 @@
 import React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import Icons from '@expo/vector-icons/FontAwesome'
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screen/home';
-import Settings from '../screen/settings';
 import NowPlaying from '../screen/nowplaying';
 
 const MyNav = () => {
-    const Tab = createBottomTabNavigator();
+    const Stack = createStackNavigator();
     return (
-        <Tab.Navigator initialRouteName='Home'>
-            <Tab.Screen 
-                name="Home" 
-                component={Home} 
+        <Stack.Navigator initialRouteName='home'>
+            <Stack.Screen 
+                name='home'
+                component={Home}
                 options={{
-                headerShown:false,
-                tabBarIcon: ({ focused }) => (
-                    <Icons name="home" size={20} />
-                ),
+                    headerShown:false
                 }}
             />
-            <Tab.Screen 
-                name="NowPlaying" 
-                component={NowPlaying} 
+            <Stack.Screen 
+                name='nowplaying'
+                component={NowPlaying}
                 options={{
-                headerShown:false,
-                tabBarLabel: 'Muzix',
-                tabBarIcon: ({ focused }) => (
-                    <Icons name="music" size={20} />
-                ),
+                    headerShown:false
                 }}
             />
-        </Tab.Navigator>
+        </Stack.Navigator>
     )
 }
 

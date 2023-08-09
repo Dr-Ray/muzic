@@ -1,38 +1,48 @@
-import { View, Text, ScrollView } from 'react-native'
-import React from 'react'
+import React from 'react';
+import Icons from '@expo/vector-icons/FontAwesome'
 
-import {useTailwind} from 'tailwind-rn'
-import Jumbotron from '../components/jumbotron';
-import Album from '../components/album';
-import ListSongs from '../components/listsongs';
-import TopBar from '../components/topbar';
-import CurrentPlaying from '../components/currentplaying';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import Dashboard from './dashboard';
+import LocalList from './locallist';
+import Settings from '../screen/settings';
 
 const Home = () => {
-  const tw = useTailwind();
-  return (
-    <View style={[tw('px-3 pt-2 relative h-full'), {marginTop:30, backgroundColor:"#F5F6FA"}]}>
-      <TopBar />
-      <Jumbotron />
-
-      <View style={tw('flex-row justify-between py-2 my-2')}>
-        <Text style={tw('text-xl font-bold')}>Albums</Text>
-        <Text style={tw('text-lg text-slate-500 font-medium')}>See all</Text>
-      </View>
-
-      <Album />
-
-      <View style={tw('flex-row justify-between py-2 my-2')}>
-        <Text style={tw('text-xl font-bold')}>Recently played</Text>
-        <Text style={tw('text-lg text-slate-500 font-medium')}>See all</Text>
-      </View>
-
-      <ScrollView style={{height:300}}>
-        <ListSongs />
-      </ScrollView>
-    </View>
-  )
+    const Tab = createBottomTabNavigator();
+    return (
+        <Tab.Navigator initialRouteName='dashboard'>
+            <Tab.Screen 
+                name='dashboard' 
+                component={Dashboard} 
+                options={{
+                    headerShown:false,
+                    tabBarIcon: ({ focused }) => (
+                        <Icons name="home" size={20} />
+                    ),
+                }}
+            />
+            <Tab.Screen 
+                name="My songs" 
+                component={LocalList} 
+                options={{
+                    tabBarLabel: 'Songs',
+                    tabBarIcon: ({ focused }) => (
+                        <Icons name="music" size={20} />
+                    ),
+                }}
+            />
+            <Tab.Screen 
+                name="Settings" 
+                component={Settings} 
+                options={{
+                    tabBarLabel: 'settings',
+                    tabBarIcon: ({ focused }) => (
+                        <Icons name="gear" size={20} />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
+    )
 }
 
 export default Home
